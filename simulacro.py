@@ -11,16 +11,25 @@
 # se debería devolver res=7
 
 def ultima_aparicion(s: list[int], e: int) -> int:
-    indice: int = 0
     aparicion: int = 0
 
-    while indice < len(s):
-        if e == s[indice]:
-            aparicion = indice
-            indice += 1
-        else:
-            indice += 1
+    for i in range(len(s)):
+        if s[i] == e:
+            aparicion = i
     return aparicion
+
+# otra opcion, mas larga pero funciona igual:
+# def ultima_aparicion(s: list[int], e: int) -> int:
+#     indice: int = 0
+#     aparicion: int = 0
+
+#     while indice < len(s):
+#         if e == s[indice]:
+#             aparicion = indice
+#             indice += 1
+#         else:
+#             indice += 1
+#     return aparicion
 
 print(ultima_aparicion([-1,4,0,4,100,0,100,0,-1,-1], 0))
 print(ultima_aparicion([1,2,120,1,567,0,9,0,1,5,6], 1))
