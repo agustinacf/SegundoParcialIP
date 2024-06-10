@@ -233,7 +233,7 @@ print(cuantos_sufijos_son_palindromos("anana"))
 # ● Un contenedor para almacenar datos que puede cambiar durante la ejecución del programa.
 # ○ Un tipo de dato que solo puede contener números enteros.
 
-# C) ¿Cuál es la finalidad de un Control Flow Graph en testin? (0.5 punto)
+# C) ¿Cuál es la finalidad de un Control Flow Graph en testing? (0.5 puntos)
 # ○ Identificar todas las posibles salidas de un programa.
 # ● Visualizar todos los posibles caminos de ejecución para asegurar la cobertura completa del código.
 # ○ eterminar los puntos de entrada y salida del programa.
