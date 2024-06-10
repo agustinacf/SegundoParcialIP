@@ -34,15 +34,15 @@ def acomodar(s: list[str]) -> list[str]:
 
     for partido in s:
         if partido == "UP":
-            lista_up.append(partido)
+            lista_up.append(partido) # agrego en lista_up las apariciones de UP
         elif partido == "LLA":
-            lista_lla.append(partido)
+            lista_lla.append(partido) # agrego en lista_lla las apariciones de LLA
     
     for partido in lista_up:
-        lista_acomodada.append(partido)
+        lista_acomodada.append(partido) # agrego primero los elementos de lista_up
     
     for partido in lista_lla:
-        lista_acomodada.append(partido)
+        lista_acomodada.append(partido) # luego agrego los elementos de lista_lla
 
     return lista_acomodada
 
@@ -50,6 +50,8 @@ s = ["LLA", "UP", "LLA", "LLA", "UP"]
 print(acomodar(s))
 l = ["LLA", "LLA", "LLA", "UP", "UP", "LLA", "UP"]
 print(acomodar(l))
+
+#--------------------------------------------------------------------------------
 
 # 2) Posición umbral [2 puntos]
 # Durante una noche en un restaurant pasan varios grupos de diversa cantidad de
@@ -83,17 +85,19 @@ def pos_umbral(s: list[int], u: int) -> int:
     indice: int = 0
     suma: int = 0
 
-    while indice < len(s):
-        if s[indice] >= 0:
+    while indice < len(s): # recorro la lista con un while
+        if s[indice] >= 0: # el numero en la lista debe ser positivo
             suma += s[indice]
             if suma > u:
-                return indice
+                return indice # me devuelve el indice del numero, que luego de la suma, supera el umbral
         indice += 1
     return -1
 
 print(pos_umbral([1,-2,0,5,-7,3], 5))
 print(pos_umbral([1,0,-2,1,-1,0,2], 7))
 print(pos_umbral([1,0,-2,5,2,-3], 7))
+
+#--------------------------------------------------------------------------------
 
 # 3) Columnas repetidas [3 puntos]
 # Implementar la función columnas_repetidas, que dada una matriz no vacía de m
@@ -133,8 +137,8 @@ def columnas_repetidas(mat: list[list[int]]) -> bool:
             else:
                 return False
         indice += 1
-        indice_opuesto = mitad
-        otro_indice = 0
+        indice_opuesto = mitad # restauro indice_opuesto
+        otro_indice = 0 # restauro otro_indice
     return True
 
 m = [[1,2,1,2],[-5,6,-5,6],[0,1,0,1]]
@@ -145,6 +149,8 @@ m3 = [[1,2,1,2,1,2],[-5,6,-5,6,-5,6],[0,1,0,1,0,1]]
 print(columnas_repetidas(m3))
 m4 = [[1,2,1,1,2,1],[-5,6,-5,-5,6,-5],[0,1,0,0,1,0]]
 print(columnas_repetidas(m4))
+
+#--------------------------------------------------------------------------------
 
 # 4) Rugby 4 naciones [3 puntos]
 # Desde hace más de 10 años existe en el mundo del rugby un torneo que disputan
@@ -183,11 +189,11 @@ def cuenta_posiciones_por_nacion(naciones: list[str], torneos: dict[int, list[st
     posicion: dict = {}
 
     for nacion in naciones:
-        posicion[nacion] = [0] * len(naciones)   # agrego al diccionario posicion una clave de la nacion y una lista de 0 con #naciones
+        posicion[nacion] = [0] * len(naciones) # agrego al diccionario posicion una clave de la nacion y una lista de 0 con |naciones|
 
-    for anio in torneos.keys():   # por cada año en las claves de torneo
-        for i in range(len(torneos[anio])):   # len(torneos[anio]) = veo la longitud de las posiciones de las naciones  
-            posicion[torneos[anio][i]][i] += 1   # busco cada pais con [torneos[anio][i]], y en esa posicion sumo 1 a la lista de 0 
+    for anio in torneos.keys(): # veo las claves de torneos
+        for i in range(len(torneos[anio])): # len(torneos[anio]) = veo la longitud de las posiciones de las naciones  
+            posicion[torneos[anio][i]][i] += 1 # busco cada pais con [torneos[anio][i]], y en esa posicion sumo 1 a la lista de 0 
     
     return posicion
 

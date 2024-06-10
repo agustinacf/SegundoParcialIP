@@ -13,12 +13,13 @@
 def ultima_aparicion(s: list[int], e: int) -> int:
     aparicion: int = 0
 
-    for i in range(len(s)):
+    for i in range(len(s)): # recorro toda la lista buscando la ultima aparicion de e en s
         if s[i] == e:
             aparicion = i
-    return aparicion
+    return aparicion # devuelvo el indice de la ultima aparicion
 
 # otra opcion, mas larga pero funciona igual:
+
 # def ultima_aparicion(s: list[int], e: int) -> int:
 #     indice: int = 0
 #     aparicion: int = 0
@@ -33,6 +34,8 @@ def ultima_aparicion(s: list[int], e: int) -> int:
 
 print(ultima_aparicion([-1,4,0,4,100,0,100,0,-1,-1], 0))
 print(ultima_aparicion([1,2,120,1,567,0,9,0,1,5,6], 1))
+
+#--------------------------------------------------------------------------------
 
 # Ejercicio 2
 #
@@ -53,18 +56,20 @@ def elementos_exclusivos(s: list[int], t: list[int]) -> list[int]:
 
     for i in range(len(s)):
         if s[i] not in t:
-            if s[i] not in lista_exclusiva:
+            if s[i] not in lista_exclusiva: # con esto me aseguro que no hayan elementos repetidos
                 lista_exclusiva.append(s[i])
     
     for i in range(len(t)):
         if t[i] not in s:
-            if t[i] not in lista_exclusiva:
+            if t[i] not in lista_exclusiva: # con esto me aseguro que no hayan elementos repetidos
                 lista_exclusiva.append(t[i])
 
     return lista_exclusiva
 
 print(elementos_exclusivos([-1,4,0,4,3,0,100,0,-1,-1], [0,100,5,0,100,-1,5]))
 print(elementos_exclusivos([0,2,34,5,15,1,2,3], [0,2,1,6,4,89,4,3]))
+
+#--------------------------------------------------------------------------------
 
 # Ejercicio 3
 #
@@ -86,14 +91,16 @@ print(elementos_exclusivos([0,2,34,5,15,1,2,3], [0,2,1,6,4,89,4,3]))
 def contar_traducciones_iguales(ing: dict[str, str], ale: dict[str, str]) -> int:
     misma_traduccion: int = 0
     
-    for palabra in ing.keys():
-        if palabra in ale.keys() and ing[palabra] == ale[palabra]:
-            misma_traduccion += 1
+    for palabra in ing.keys(): # busco cada palabra en las claves del diccionario ing
+        if palabra in ale.keys() and ing[palabra] == ale[palabra]: # si la palabra esta en ale y tienen el mismo valor(= traduccion)
+            misma_traduccion += 1 # sumo una traduccion igual
     return misma_traduccion
 
 aleman = {"Mano": "Hand", "Pie": "Fuss", "Dedo": "Finger", "Cara": "Gesicht"}
 inglés = {"Pie": "Foot", "Dedo": "Finger", "Mano": "Hand"}
 print(contar_traducciones_iguales(inglés, aleman))
+
+#--------------------------------------------------------------------------------
 
 # Ejercicio 4
 #

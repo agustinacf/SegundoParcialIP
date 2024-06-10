@@ -54,3 +54,36 @@
 # torneos= {2023:["nz", "sud", "arg", "aus"], 2022:["nz", "sud", "aus", "arg"]}
 # se debería devolver res = {"arg": [0,0,1,1], "aus": [0,0,1,1], "nz": [2,0,0,0],
 # "sud": [0,2,0,0]}
+
+# 4) Cuántos palíndromos sufijos (2 puntos)
+# Decimos que una palabra es palíndromo si se lee igual de izquierda a derecha que de derecha a izquierda. Se nos pide
+# programar en python la siguiente función:
+
+# problema cuantos_sufijos_son_palindromos(in texto:String) : Z{
+# requiere: -
+# asegura: {res es igual a la cantidad de palíndromos que hay en el conjunto de sufijos de texto}
+# }
+
+# Nota: un sufijo es una subsecuencia de texto que va desde una posición cualquiera hasta el final de la palabra. Ej: "Diego",
+# el conjunto de sufijos es: "Diego", "iego", "ego", "go", "o". Para este ejercicio no consideramos a "" como sufijo de ningún
+# texto.
+
+# 2) Chicken Game (3 puntos)
+# El juego del gallina es una competición en la que dos participantes conducen un vehículo en dirección al del contrario; si
+# alguno se desvía de la trayectoria de choque pierde y es humillado por comportarse como un "gallina". Se hizo un torneo
+# para ver quién es el menos gallina. Juegan todos contra todos una vez y van sumando puntos, o restando. Si dos jugadores 
+# juegan y se chocan entre sí, entonces pierde cada uno 5 puntos por haberse dañado. Si ambos jugadores se desvían, pierde
+# cada uno 10 puntos por gallinas. Si uno no se desvía y el otro sí, el gallina pierde 15 puntos por ser humillado y el ganador
+# suma 10 puntos! En este torneo, cada persona que participa tiene una estrategia predefinida para competir: o siempre se 
+# desvía, o nunca lo hace. Se debe programar la función 'torneo_de_gallinas' que recibe un diccionario (donde las claves
+# representan los nombres de los participantes que se anotaron en el torneo, y los valores sus respectivas estrategias) y 
+# devuelve un diccionario con los puntajes obtenidos por cada jugador.
+
+# problema torneo_de_gallinas(in estrategias: dict<String, String>) : dict<String,Z> {
+# requiere: {estrategias tiene por lo menos 2 elementos(jugadores)}
+# requiere: {Las claves de estrategias tienen longitud mayor a 0}
+# requiere: {Los valores de estrategias sólo pueden ser los strings "me desvío siempre" ó "me la banco y no me desvío"}
+# asegura: {Las claves de res y las claves de estrategias son iguales}
+# asegura: {para cada jugador p perteneciente a claves(estrategias), res[p] es igual a la cantidad de puntos que obtuvo al
+# finalizar el torneo, dado que jugó una vez contra cada otro jugador}
+# }
