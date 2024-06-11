@@ -20,7 +20,7 @@
 # asegura: {Todos los elementos de res están en codigos_barra}
 # }
 
-def divisores(numero: int) -> list[int]:
+def divisores(numero: int) -> list[int]: # hago una funcion que me devuelva una lista con los divisores de un numero
     lista_divisores: list[int] = []
     numero_rango: int = numero + 1
 
@@ -29,12 +29,12 @@ def divisores(numero: int) -> list[int]:
             lista_divisores.append(i)
     return lista_divisores
 
-def sacar_primer_numero(numero: int) -> int:
-    numero_str: str = str(numero)
+def sacar_primer_numero(numero: int) -> int: # hago una funcion que saque el primero numero de un numero
+    numero_str: str = str(numero) # debo transformar el numero a un string
     numero_nuevo: int = ""
 
     if len(numero_str) > 0:
-        for i in range(1, len(numero_str)):
+        for i in range(1, len(numero_str)): # el rango empieza en 1 asi elimina el primer elemento
             numero_nuevo += numero_str[i]
     return numero_nuevo
 
@@ -45,12 +45,12 @@ def filtrar_codigos_primos(codigos_barra: list[int]) -> list[int]:
     for i in range(len(codigos_barra)):
         numero: int = codigos_barra[i]
         longitud_numero: int = len(str(numero))
-        while longitud_numero != 3:
+        while longitud_numero != 3: # voy sacando numeros de numero hasta que su longitud sea 3
             numero = sacar_primer_numero(numero)
             longitud_numero: int = len(str(numero))
-        numero = int(numero)
-        lista_divisores = divisores(numero)
-        if len(lista_divisores) == 2:
+        numero = int(numero) # transformo en int el numero por si hay numeros como 002, 014
+        lista_divisores = divisores(numero) 
+        if len(lista_divisores) == 2: # si la lista de divisores es 2, el numero es primo
             numero: int = codigos_barra[i]
             lista_primos.append(numero)
     return lista_primos
@@ -84,24 +84,20 @@ print(filtrar_codigos_primos(c2))
 # }
 
 def stock_productos(stock_cambios: list[(str, int)]) -> dict[str,(int, int)]:
-    extremos: dict[str,(int, int)] = {}
-    indice: int = 0
-    indice_aux: int = 0
+    extremos: dict[str,(int, int)] = {} # creo un diccionario vacio
     
-    for tuplas in stock_cambios:
-        producto: str = tuplas[0]
-        if producto not in extremos.keys():
-            minimo: int = tuplas[1]
-            maximo: int = tuplas[1]
-            indice_aux = 0
-            while indice_aux < len(stock_cambios):
-                if stock_cambios[indice_aux][0] == producto:
-                    if stock_cambios[indice_aux][1] < minimo:
-                        minimo = stock_cambios[indice_aux][1]
-                    elif stock_cambios[indice_aux][1] > maximo:
-                        maximo = stock_cambios[indice_aux][1]
-                indice_aux += 1
-            extremos[producto] = (minimo, maximo)
+    for tuplas in stock_cambios: # agarro cada tupla de la lista
+        producto: str = tuplas[0] # el producto va a ser el primer elemento de la tupla
+        if producto not in extremos.keys(): # asi me aseguro que no modifique los min y max
+            minimo: int = tuplas[1] # el min va a ser el segundo elemento de la tupla
+            maximo: int = tuplas[1] # el max va a ser el segundo elemento de la tupla
+            for indice in range(len(stock_cambios)): # recorro stock_cambios
+                if stock_cambios[indice][0] == producto: # quiero ver si son el mismo producto
+                    if stock_cambios[indice][1] < minimo:
+                        minimo = stock_cambios[indice][1]
+                    elif stock_cambios[indice][1] > maximo:
+                        maximo = stock_cambios[indice][1]
+            extremos[producto] = (minimo, maximo) # agrego al diccionario el producto con sus max y min
     return extremos
 
 sc1 = [("galletita", 12),("galletita", 10),("galletita", 1),("hueso",120),("hueso",3),("hueso",10)] #{"galletita":(1,12), "hueso":(3,120)}
@@ -110,7 +106,7 @@ sc2 = [("pato", 12),("pato",0),("pato",13),("collar",300),("collar",20),("collar
 #{"pato":(0,13), "collar":(17,300), "comida": (29,100)}
 print(stock_productos(sc2))
 sc3 = [("correa", 10),("comida",140),("comida",49),("shampoo",2),("shampoo",39),("shampoo",50)]
-#{"corra": (10,10), "comida":(2,140), "shampoo": (2,50)}
+#{"corra": (10,10), "comida":(49,140), "shampoo": (2,50)}
 print(stock_productos(sc3))
 
 #--------------------------------------------------------------------------------
