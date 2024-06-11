@@ -47,6 +47,8 @@
 
 
 
+#--------------------------------------------------------------------------------
+
 # 2) Hace calor [2 puntos]
 # El cambio climático es innegable. En las últimas décadas hemos registrado aumentos en las
 # temperaturas medias del planeta, lo que está generando una gran cantidad de efecto en la climatología
@@ -80,6 +82,8 @@ def valor_minimo(s: list[(float, float)]) -> float:
     return temp_minima
 
 print(valor_minimo([(1.0, 5.2), (10.4, 15.1), (19.7, 28.9), (25.4, 35.6), (-3.1, 1.3)]))
+
+#--------------------------------------------------------------------------------
 
 # 3) El MERVAL [3 puntos]
 # En la bolsa de valores de Argentina (denominada MERVAL) operan un gran número de empresas. Las
@@ -136,19 +140,14 @@ def valores_extremos(cotizaciones_diarias: dict[str, list[(int, float)]]) -> dic
                 indice += 1
             minimo_maximo[empresa] = (min_cot,max_cot)
             
-    
-    
-
     return minimo_maximo
 
 cotizaciones_diarias = {"YPF" : [(1,10),(15, 3), (31,100)], "ALUA" : [(1,0), (20, 50), (31,30)]}
 print(valores_extremos(cotizaciones_diarias))
+cotizaciones_diarias2 = {"YPF" : [(1,10),(15, 3), (31,100)], "ALUA" : [(1,0), (20, 50), (31,30)], "MELI" : [(1,40), (5,10), (27, 9)]}
+print(valores_extremos(cotizaciones_diarias2))
 
-
-
-
-
-
+#--------------------------------------------------------------------------------
 
 # 4) Sudoku [3 puntos]
 # El sudoku es un juego moderno, inventado en el Siglo XX, que consiste en una grilla de 9x9 celdas. Para
@@ -185,6 +184,3 @@ print(valores_extremos(cotizaciones_diarias))
 # Consejo: Para probar con matrices pueden usar:
 # matriz_ceros = [[0]*9]*9
 # matriz_fila_1_distinta = [list(range(1,10))] + [[0]*9]*8
-
-def es_sudoku_valido(m: list[list[int]]) -> bool:
-    

@@ -1,6 +1,6 @@
 # 1) Códigos filtrados [2 puntos]
 # El hijo del dueño de la veterinaria, cuya actividad principal es ver tik toks, cree que los productos 
-# cuyos código de barras terminan en números primos son especialmente auspiciosos y deben ser destacados
+# cuyos código de barras terminimoan en números primos son especialmente auspiciosos y deben ser destacados
 # en la tienda. Luego de convencer a su padre de esta idea, solicita una función en python que facilite
 # esta gestión.
 
@@ -19,6 +19,48 @@
 # están en res}
 # asegura: {Todos los elementos de res están en codigos_barra}
 # }
+
+def divisores(numero: int) -> list[int]:
+    lista_divisores: list[int] = []
+    numero_rango: int = numero + 1
+
+    for i in range(1, numero_rango, 1):
+        if numero % i == 0:
+            lista_divisores.append(i)
+    return lista_divisores
+
+def sacar_primer_numero(numero: int) -> int:
+    numero_str: str = str(numero)
+    numero_nuevo: int = ""
+
+    if len(numero_str) > 0:
+        for i in range(1, len(numero_str)):
+            numero_nuevo += numero_str[i]
+    return numero_nuevo
+
+def filtrar_codigos_primos(codigos_barra: list[int]) -> list[int]:
+    lista_primos: list[int] = []
+    lista_divisores: list[int] = []
+
+    for i in range(len(codigos_barra)):
+        numero: int = codigos_barra[i]
+        longitud_numero: int = len(str(numero))
+        while longitud_numero != 3:
+            numero = sacar_primer_numero(numero)
+            longitud_numero: int = len(str(numero))
+        numero = int(numero)
+        lista_divisores = divisores(numero)
+        if len(lista_divisores) == 2:
+            numero: int = codigos_barra[i]
+            lista_primos.append(numero)
+    return lista_primos
+
+c1 = [11111002, 214013, 849032, 38491005]
+print(filtrar_codigos_primos(c1))
+c2 = [101, 38435028, 4742019, 95472986]
+print(filtrar_codigos_primos(c2))
+
+#--------------------------------------------------------------------------------
 
 # 2) Cambios de stock de stock_productos [2 puntos]
 
@@ -41,6 +83,38 @@
 # cantidad de ese producto en stock_cambios y como segundo valor el mayor}
 # }
 
+def stock_productos(stock_cambios: list[(str, int)]) -> dict[str,(int, int)]:
+    extremos: dict[str,(int, int)] = {}
+    indice: int = 0
+    indice_aux: int = 0
+    
+    for tuplas in stock_cambios:
+        producto: str = tuplas[0]
+        if producto not in extremos.keys():
+            minimo: int = tuplas[1]
+            maximo: int = tuplas[1]
+            indice_aux = 0
+            while indice_aux < len(stock_cambios):
+                if stock_cambios[indice_aux][0] == producto:
+                    if stock_cambios[indice_aux][1] < minimo:
+                        minimo = stock_cambios[indice_aux][1]
+                    elif stock_cambios[indice_aux][1] > maximo:
+                        maximo = stock_cambios[indice_aux][1]
+                indice_aux += 1
+            extremos[producto] = (minimo, maximo)
+    return extremos
+
+sc1 = [("galletita", 12),("galletita", 10),("galletita", 1),("hueso",120),("hueso",3),("hueso",10)] #{"galletita":(1,12), "hueso":(3,120)}
+print(stock_productos(sc1))
+sc2 = [("pato", 12),("pato",0),("pato",13),("collar",300),("collar",20),("collar",17),("comida",100),("comida",29)]
+#{"pato":(0,13), "collar":(17,300), "comida": (29,100)}
+print(stock_productos(sc2))
+sc3 = [("correa", 10),("comida",140),("comida",49),("shampoo",2),("shampoo",39),("shampoo",50)]
+#{"corra": (10,10), "comida":(2,140), "shampoo": (2,50)}
+print(stock_productos(sc3))
+
+#--------------------------------------------------------------------------------
+
 # 3) Matriz de responsables por turnos [2 puntos]
 
 # Las personas responsables de los turnos están anotadas en una matriz donde las columnas representan los
@@ -58,14 +132,125 @@
 
 # problema un_responsable_por_turno(in grilla_horaria: seq<seq<String>>): seq<(Bool x Bool)> {
 # requiere: {|grilla_horaria| = 8}
-# requiere: {Todos los elementos de grilla_horaria tienen el mism tamaño (mayor a 0 y menor a 8)}
+# requiere: {Todos los elementos de grilla_horaria tienen el mismo tamaño (mayor a 0 y menor a 8)}
 # requiere: {No hay cadenas vacías en las listas de grilla_horaria}
 # asegura: {|res| = |grilla_horaria[0]|}
 # asegura: {El primer valor de la tupla en res[i], con i:Z, 0 <= i < |res| es igual a True <==> los primeros
 # 4 valores de la columna i de grilla_horaria son iguales entre sí}
-# asegura: {El segundo valor de la tupla en res[i], con i:<, 0 <= i < |res| es igual a True <==> los últimos
+# asegura: {El segundo valor de la tupla en res[i], con i:Z, 0 <= i < |res| es igual a True <==> los últimos
 # 4 valores de la columna i de grilla_horaria son iguales entre sí}
 # }
+
+def un_responsable_por_turno(grilla_horaria: list[list[str]]) -> list[(bool, bool)]:
+    indice: int = 0
+    indice_aux: int = 0
+    mitad: int = int(len(grilla_horaria)/2)
+    res_mitad_uno: list[str] = []
+    res_mitad_dos: list[str] = []
+    lista_bool: list[(bool, bool)] = []
+    res = str
+    cantidad_iteraciones: int = 0
+
+    while indice_aux < len(grilla_horaria[0]):
+        persona = grilla_horaria[0][indice_aux]
+        while indice < mitad:
+            if persona == grilla_horaria[indice][indice_aux]:
+                res = True
+                cantidad_iteraciones += 1
+                indice = cantidad_iteraciones
+            else:
+                res = False
+                indice = mitad
+        res_mitad_uno.append(res)
+        indice_aux += 1
+        indice = 0
+        cantidad_iteraciones = 0
+    
+    indice_aux = 0
+    indice = mitad
+    while indice_aux < len(grilla_horaria[0]):
+        persona = grilla_horaria[4][indice_aux]
+        while indice < len(grilla_horaria):
+            if persona == grilla_horaria[indice][indice_aux]:
+                res = True
+                cantidad_iteraciones += 1
+                indice = mitad + cantidad_iteraciones
+            else:
+                res = False
+                indice = len(grilla_horaria)
+        res_mitad_dos.append(res)
+        indice_aux += 1
+        indice = mitad
+        cantidad_iteraciones = 0
+
+    for i in range(len(res_mitad_uno)):
+        if res_mitad_uno[i] and res_mitad_dos[i]:
+            lista_bool.append((True, True))
+        elif res_mitad_uno[i] == False and res_mitad_dos[i] == False:
+            lista_bool.append((False, False))
+        elif res_mitad_uno[i] and res_mitad_dos[i] == False:
+            lista_bool.append((True, False))
+        elif res_mitad_uno[i] == False and res_mitad_dos[i]:
+            lista_bool.append((False, True))
+
+    return lista_bool
+
+g1 = [["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"]]
+print(un_responsable_por_turno(g1))
+g2 = [["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["ana", "res", "julio", "bool"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "pika", "kitty"]]
+print(un_responsable_por_turno(g2))
+g3 = [["ana", "julio", "res", "bool"],
+      ["ana", "julio", "res", "bool"],
+      ["ana", "res", "res", "bool"],
+      ["ana", "julio", "julio", "bool"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "kitty", "pika"],
+      ["luki", "po", "pika", "pika"],
+      ["luki", "po", "kitty", "kitty"]]
+print(un_responsable_por_turno(g3))
+g4 = [["ana", "julio", "res"],
+      ["ana", "julio", "res"],
+      ["ana", "res", "res"],
+      ["ana", "julio", "julio"], #TFF
+      ["luki", "po", "kitty"],
+      ["luki", "po", "kitty"],
+      ["luki", "po", "pika"],
+      ["luki", "po", "kitty"]] #TTF
+print(un_responsable_por_turno(g4))
+g5 = [["ana", "julio"],
+      ["ana", "julio"],
+      ["ana", "res"],
+      ["ana", "julio"], #TF
+      ["luki", "po"],
+      ["luki", "po"],
+      ["luki", "po"],
+      ["luki", "po"]] #TT
+print(un_responsable_por_turno(g5))
+g6 = [["ana", "julio"],
+      ["ana", "julio"],
+      ["ana", "julio"],
+      ["ana", "julio"], #Tt
+      ["luki", "po"],
+      ["luki", "po"],
+      ["luki", "po"],
+      ["luki", "po"]] #TT
+print(un_responsable_por_turno(g6))
+
+#--------------------------------------------------------------------------------
 
 # 4) Subsecuencia más larga [2 puntos]
 
@@ -83,3 +268,35 @@
 # contenga solo elementos "perro" o "gato"}
 # asegura: {Si hay más de una subsecuencia de tamaño máximo, res tiene el índice de la primera}
 # }
+
+def primer_numero_secuencia_mas_larga(lista: list[int]) -> int:
+    longitud_actual: int = 0
+    max_longitud: int = 0
+    primer_numero = int
+
+    for i in range(len(lista)):
+        if i + 1 < len(lista) and lista[i] + 1 == lista[i + 1]:
+            if longitud_actual == 0:
+                primer_numero = lista[i]
+            longitud_actual += 1
+        else:
+            if longitud_actual > max_longitud:
+                max_longitud = longitud_actual
+            longitud_actual = 0
+    return primer_numero
+
+def subsecuencia_mas_larga(tipos_pacientes_atendidos: list[str]) -> int:
+    lista_indices: list[int] = []
+    indice_res = int
+
+    for i in range(len(tipos_pacientes_atendidos)):
+        if tipos_pacientes_atendidos[i] == "perro" or tipos_pacientes_atendidos[i] == "gato":
+            lista_indices.append(i)    
+    print(lista_indices)
+    indice_res = primer_numero_secuencia_mas_larga(lista_indices)
+    return indice_res
+
+tpa1 = ["pato","perro","gato","perro","leon","perro"]
+print(subsecuencia_mas_larga(tpa1))
+tpa2 = ["pato","perro","gato","perro","leon","perro","perro","gato","perro"]
+print(subsecuencia_mas_larga(tpa2))
