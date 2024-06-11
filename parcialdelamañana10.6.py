@@ -22,13 +22,13 @@
 from queue import Queue as Cola
 
 def reordenar_cola_priorizando_vips(filaClientes: Cola[str, str]) -> Cola[str]:
-    cola_copiada: Cola = Cola()
-    cola_copiada_aux: Cola = Cola()
-    clientes_vip: Cola = Cola()
-    clientes_comunes: Cola = Cola()
-    clientes_ordenados: Cola = Cola()
+    cola_copiada: Cola = Cola() # donde voy a copiar los elementos de filaClientes
+    cola_copiada_aux: Cola = Cola() # se puede hacer con una sola copiada pero me quiero asegurar
+    clientes_vip: Cola = Cola() # aca van los clientes vips
+    clientes_comunes: Cola = Cola() # aca van los clientes comunes
+    clientes_ordenados: Cola = Cola() # aca van los clientes vips en orden y luego los clientes comunes en orden
 
-    while not filaClientes.empty():
+    while not filaClientes.empty(): # paso los elementos de filaClientes a ambas colas copiadas
         elem = filaClientes.get()
         cola_copiada.put(elem)
         cola_copiada_aux.put(elem)
@@ -152,30 +152,45 @@ print(torneo_de_gallinas(e4))
 # asegura: {res = 3 <==> hay tres 'X' y hay tres 'O' consecutivas en forma vertical (evidenciando que beto hizo trampa)}
 # }
 
+def hay_tres_iguales(lista: list[int]) -> bool: # hago una funcion que lea si en una lista hay 3 elementos iguales
+    res = bool
+    contador_iguales: int = 0
+    indice: int = 0
+
+    for i in range(len(lista)): # recorro la lista
+        numero: int = lista[i] # veo cada numero en particular 
+        while indice < len(lista):
+            if numero == lista[indice]:
+                contador_iguales += 1 # por cada numero igual sumo uno al contador
+                if contador_iguales == 3:
+                    return True # si el contador llega a 3 devuelve True
+                indice += 1
+            else:
+                indice += 1
+    return False # si no encuentra 3 elementos iguales devuelve False
+
 def quien_gano_el_tateti_facilito(tablero: list[str]) -> int:
     indices_x: list[int] = []
     indices_o: list[int] = []
     res_x = bool
     res_o = bool
 
-    for filas in range(len(tablero)):
-        for columnas in range(len(tablero[filas])):
+    for filas in range(len(tablero)): # recorro cada fila del tablero
+        for columnas in range(len(tablero[filas])): # recorro lo equivalente a cada columna del tablero
             if tablero[filas][columnas] == "X":
-                indices_x.append(columnas)
+                indices_x.append(columnas) # si encuentra una X pongo el indice en indices_x
             elif tablero[filas][columnas] == "O":
-                indices_o.append(columnas)
-    
-    for i in range(len(indices_x)):
-        if indices_x[0] == indices_x[i]:
-            res_x = True
-        else:
-            res_x = False
-    
-    for i in range(len(indices_o)):
-        if indices_o[0] == indices_o[i]:
-            res_o = True
-        else:
-            res_o = False
+                indices_o.append(columnas) # si encuentra una O pongo el indice en indices_o
+
+    if hay_tres_iguales(indices_x):
+        res_x = True
+    else:
+        res_x = False
+
+    if hay_tres_iguales(indices_o):
+        res_o = True
+    else:
+        res_o = False
     
     if res_x and res_o == False:
         return 1
@@ -193,6 +208,12 @@ t2 = [["","O","","","",""],["","X","","","O",""],["","X","","","",""],["","X","O
 print(quien_gano_el_tateti_facilito(t2)) #1
 t3 = [["","O","","X","",""],["","","O","","","X"],["","O","","","",""],["X","","","","",""]]
 print(quien_gano_el_tateti_facilito(t3)) #2
+t4 = [["","O","","X","",""],["","","O","","","X"],["","","","","O",""],["X","","","","",""]]
+print(quien_gano_el_tateti_facilito(t4)) #2
+t5 = [["","X","","","","","O"],["X","","O","","","",""],["","","","","O","X","X"],["O","","","","","","X"]] #2
+print(quien_gano_el_tateti_facilito(t5))
+t6 = [["X","","","","",""],["X","","","O","",""],["X","","","O","",""],["","","","O","",""]] #3
+print(quien_gano_el_tateti_facilito(t6))
 
 #--------------------------------------------------------------------------------
 
@@ -211,7 +232,7 @@ print(quien_gano_el_tateti_facilito(t3)) #2
 
 def es_palindromo(palabra: str) -> bool: # hago una funcion auxiliar que me indique si una palabra es palindromo o no
     for i in range(len(palabra)):
-        if palabra[i] == palabra[len(palabra) - i - 1]:
+        if palabra[i] == palabra[len(palabra) - i - 1]: # si la palabra en un indice es igual al indice opuesto
             return True
         return False
 
@@ -219,7 +240,7 @@ def quitar_primera_letra(palabra: str) -> str: # hago una funcion auxiliar que q
     palabra_nueva: str = ""
 
     if len(palabra) > 0:
-        for i in range(1, len(palabra)):
+        for i in range(1, len(palabra)): # comienza desde 1 asi no suma a palabra_nueva el primer elemento de palabra
             palabra_nueva += palabra[i]
     return palabra_nueva
 
