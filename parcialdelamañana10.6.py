@@ -152,21 +152,47 @@ print(torneo_de_gallinas(e4))
 # asegura: {res = 3 <==> hay tres 'X' y hay tres 'O' consecutivas en forma vertical (evidenciando que beto hizo trampa)}
 # }
 
-            
 def quien_gano_el_tateti_facilito(tablero: list[str]) -> int:
-    indice: int = 0
+    indices_x: list[int] = []
+    indices_o: list[int] = []
+    res_x = bool
+    res_o = bool
 
-    while indice 
+    for filas in range(len(tablero)):
+        for columnas in range(len(tablero[filas])):
+            if tablero[filas][columnas] == "X":
+                indices_x.append(columnas)
+            elif tablero[filas][columnas] == "O":
+                indices_o.append(columnas)
+    
+    for i in range(len(indices_x)):
+        if indices_x[0] == indices_x[i]:
+            res_x = True
+        else:
+            res_x = False
+    
+    for i in range(len(indices_o)):
+        if indices_o[0] == indices_o[i]:
+            res_o = True
+        else:
+            res_o = False
+    
+    if res_x and res_o == False:
+        return 1
+    
+    if res_x == False and res_o == False:
+        return 2
+    
+    if res_x and res_o:
+        return 3
 
-
-
+t = [["","","","","",""],["","","","","",""],["","","","","",""],["","","","","",""]]
 t1 = [["X","","O","",""],["X","O","","",""],["X","","","","O"]] #1
 print(quien_gano_el_tateti_facilito(t1))
-
-
-
-
-
+t2 = [["","O","","","",""],["","X","","","O",""],["","X","","","",""],["","X","O","","",""]]
+print(quien_gano_el_tateti_facilito(t2)) #1
+t3 = [["","O","","X","",""],["","","O","","","X"],["","O","","","",""],["X","","","","",""]]
+print(quien_gano_el_tateti_facilito(t3)) #2
 
 #--------------------------------------------------------------------------------
 
