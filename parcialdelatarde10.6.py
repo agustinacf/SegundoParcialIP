@@ -145,41 +145,39 @@ def un_responsable_por_turno(grilla_horaria: list[list[str]]) -> list[(bool, boo
     res_mitad_dos: list[str] = []
     lista_bool: list[(bool, bool)] = []
     res = str
-    cantidad_iteraciones: int = 0
 
-    while indice_aux < len(grilla_horaria[0]):
-        persona = grilla_horaria[0][indice_aux]
-        while indice < mitad:
-            if persona == grilla_horaria[indice][indice_aux]:
+    # quiero ver la primera mitad de la matriz
+    while indice_aux < len(grilla_horaria[0]): # indice_aux me ayuda a recorrer la primer lista de grilla_horaria
+        persona = grilla_horaria[0][indice_aux] # como las personas deben ser en todas las filas iguales, tomo las de la primer lista (*1)
+        while indice < mitad: # como siempre |grilla_horaria| = 8, el limite de indice es 3 (no puede llegar a mitad = 4) (*2)
+            if persona == grilla_horaria[indice][indice_aux]: # busco la persona en el mismo indice_aux pero en la siguiente lista (*3)
                 res = True
-                cantidad_iteraciones += 1
-                indice = cantidad_iteraciones
+                indice += 1
             else:
                 res = False
-                indice = mitad
-        res_mitad_uno.append(res)
-        indice_aux += 1
-        indice = 0
-        cantidad_iteraciones = 0
+                indice = mitad # como el res = false debe terminar la iteracion, entonces hago que el indice sea la mitad, ya que (*2)
+        res_mitad_uno.append(res) # agrego el resultado a la lista de la primer mitad, en la posicion de indice_aux
+        indice_aux += 1 # para ver el elemento siguiente de grilla_horaria
+        indice = 0 # restauro el indice
     
-    indice_aux = 0
-    indice = mitad
+    #quiero ver la segunda mitad de la matriz
+    indice_aux = 0 # restauro el indice aux
+    indice = mitad # ahora empiezo a ver desde la 4 lista
     while indice_aux < len(grilla_horaria[0]):
-        persona = grilla_horaria[4][indice_aux]
-        while indice < len(grilla_horaria):
-            if persona == grilla_horaria[indice][indice_aux]:
+        persona = grilla_horaria[4][indice_aux] # (*1)
+        while indice < len(grilla_horaria): # ahora tomo valores desde el 4 hasta el 7 inclusive (el indice no puede ser 8)
+            if persona == grilla_horaria[indice][indice_aux]: # (*3)
                 res = True
-                cantidad_iteraciones += 1
-                indice = mitad + cantidad_iteraciones
+                indice +=1
             else:
                 res = False
-                indice = len(grilla_horaria)
-        res_mitad_dos.append(res)
-        indice_aux += 1
-        indice = mitad
-        cantidad_iteraciones = 0
+                indice = len(grilla_horaria) # como el res = false debe terminar la iteracion
+        res_mitad_dos.append(res) # agrego el resultado a la lista de la segunda mitad, en la posicion de indice_aux
+        indice_aux += 1 # para ver el elemento siguiente de grilla_horaria
+        indice = mitad # restauro el indice
 
-    for i in range(len(res_mitad_uno)):
+    for i in range(len(res_mitad_uno)): # |res_mitad_uno| = |res_mitad_dos| entonces tomo cualquiera para el range
+        # evaluo los posibles resultados de ambas listas, siempre en el mismo indice
         if res_mitad_uno[i] and res_mitad_dos[i]:
             lista_bool.append((True, True))
         elif res_mitad_uno[i] == False and res_mitad_dos[i] == False:
@@ -239,7 +237,7 @@ print(un_responsable_por_turno(g5))
 g6 = [["ana", "julio"],
       ["ana", "julio"],
       ["ana", "julio"],
-      ["ana", "julio"], #Tt
+      ["ana", "julio"], #TT
       ["luki", "po"],
       ["luki", "po"],
       ["luki", "po"],
@@ -271,24 +269,23 @@ def primer_numero_secuencia_mas_larga(lista: list[int]) -> int:
     primer_numero = int
 
     for i in range(len(lista)):
-        if i + 1 < len(lista) and lista[i] + 1 == lista[i + 1]:
+        if i + 1 < len(lista) and lista[i] + 1 == lista[i + 1]: # si lista[i] + 1 == lista[i + 1] quiere decir que son consecutivos
             if longitud_actual == 0:
-                primer_numero = lista[i]
+                primer_numero = lista[i] # guardo el primer numero
             longitud_actual += 1
         else:
             if longitud_actual > max_longitud:
                 max_longitud = longitud_actual
-            longitud_actual = 0
-    return primer_numero
+            longitud_actual = 0 # reincio la longitud
+    return primer_numero # me devuelve el primer numero guardado de la lista con mayor longitud
 
 def subsecuencia_mas_larga(tipos_pacientes_atendidos: list[str]) -> int:
     lista_indices: list[int] = []
     indice_res = int
 
-    for i in range(len(tipos_pacientes_atendidos)):
+    for i in range(len(tipos_pacientes_atendidos)): # recorro cada posicion de la lista tipos_pacientes_atendidos
         if tipos_pacientes_atendidos[i] == "perro" or tipos_pacientes_atendidos[i] == "gato":
-            lista_indices.append(i)    
-    print(lista_indices)
+            lista_indices.append(i) # si la lista en esa posicion es "perro" o "gato", guardo en una lista esos indices
     indice_res = primer_numero_secuencia_mas_larga(lista_indices)
     return indice_res
 

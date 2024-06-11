@@ -191,9 +191,9 @@ def cuenta_posiciones_por_nacion(naciones: list[str], torneos: dict[int, list[st
     for nacion in naciones:
         posicion[nacion] = [0] * len(naciones) # agrego al diccionario posicion una clave de la nacion y una lista de 0 con |naciones|
 
-    for anio in torneos.keys(): # veo las claves de torneos
-        for i in range(len(torneos[anio])): # len(torneos[anio]) = veo la longitud de las posiciones de las naciones  
-            posicion[torneos[anio][i]][i] += 1 # busco cada pais con [torneos[anio][i]], y en esa posicion sumo 1 a la lista de 0 
+    for epoca in torneos.keys(): # veo las claves de torneos
+        for i in range(len(torneos[epoca])): # len(torneos[epoca]) = veo la longitud de las posiciones de las naciones  
+            posicion[torneos[epoca][i]][i] += 1 # busco cada pais con [torneos[epoca][i]], y en esa posicion sumo 1 a la lista de 0 
     
     return posicion
 

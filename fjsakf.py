@@ -6,38 +6,34 @@ def un_responsable_por_turno(grilla_horaria: list[list[str]]) -> list[(bool, boo
     res_mitad_dos: list[str] = []
     lista_bool: list[(bool, bool)] = []
     res = str
-    cantidad_iteraciones: int = 0
 
-    while indice_aux < len(grilla_horaria[0]):
-        persona = grilla_horaria[0][indice_aux]
-        while indice < mitad:
-            if persona == grilla_horaria[indice][indice_aux]:
+    while indice_aux < len(grilla_horaria[0]): # indice_aux me ayuda a recorrer la primer lista de grilla_horaria
+        persona = grilla_horaria[0][indice_aux] # como las personas deben ser en todas las filas iguales, tomo las de la primer lista
+        while indice < mitad: # como siempre |grilla_horaria| = 8, el limite de indice es 3 (no puede llegar a mitad = 4)
+            if persona == grilla_horaria[indice][indice_aux]: # busco la persona en el mismo indice_aux pero en la siguiente lista
                 res = True
-                cantidad_iteraciones += 1
-                indice = cantidad_iteraciones
-                in
+                indice += 1
             else:
                 res = False
                 indice = mitad
         res_mitad_uno.append(res)
-        indice += 1
+        indice_aux += 1
         indice = 0
         cantidad_iteraciones = 0
     
-    indice = 0
+    indice_aux = 0
     indice = mitad
-    while indice < len(grilla_horaria[0]):
-        persona = grilla_horaria[4][indice]
+    while indice_aux < len(grilla_horaria[0]):
+        persona = grilla_horaria[4][indice_aux]
         while indice < len(grilla_horaria):
-            if persona == grilla_horaria[indice][indice]:
+            if persona == grilla_horaria[indice][indice_aux]:
                 res = True
-                cantidad_iteraciones += 1
-                indice = mitad + cantidad_iteraciones
+                indice +=1
             else:
                 res = False
                 indice = len(grilla_horaria)
         res_mitad_dos.append(res)
-        indice += 1
+        indice_aux += 1
         indice = mitad
         cantidad_iteraciones = 0
 
@@ -101,7 +97,7 @@ print(un_responsable_por_turno(g5))
 g6 = [["ana", "julio"],
       ["ana", "julio"],
       ["ana", "julio"],
-      ["ana", "julio"], #Tt
+      ["ana", "julio"], #TT
       ["luki", "po"],
       ["luki", "po"],
       ["luki", "po"],
