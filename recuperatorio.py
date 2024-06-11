@@ -41,11 +41,32 @@
 # se deberia devolver res = 14 (en este caso el programa termina porque el saldo no alcanza para realizar
 # un viaje que está entre las transacciones)
 
+def ap_antes_corte(c: chr, s: str) -> int:
+    contador_apariciones: int = 0 # hago un contador para las apariciones del caracter
 
+    for i in range(len(s)):
+        if s[i] == c:
+            contador_apariciones += 1
+        elif s[i] == "x": # si hay una x en el string, devuelvo el contador
+            return contador_apariciones
+    return contador_apariciones
 
+def verificar_transacciones(s: str) -> int:
+    saldo: int = 0
 
+    for i in range(len(s)):
+        if s[i] == "x":
+            return (350 * ap_antes_corte("r", s)-(56 * ap_antes_corte("v", s)))
+        elif s[i] == "v":
+            saldo -= 56
+            if saldo < 0:
+                saldo += 56
+                return saldo
+        elif s[i] == "r":
+            saldo += 350
 
-
+print(verificar_transacciones("ssrvvrrvvsvvsxrvvv"))
+print(verificar_transacciones("ssrvvvvsvvsvvv"))
 
 #--------------------------------------------------------------------------------
 
@@ -190,3 +211,5 @@ print(valores_extremos(cotizaciones_diarias2))
 # Consejo: Para probar con matrices pueden usar:
 # matriz_ceros = [[0]*9]*9
 # matriz_fila_1_distinta = [list(range(1,10))] + [[0]*9]*8
+
+def es_sudoku_valido(m: list[list[int]]) -> bool:

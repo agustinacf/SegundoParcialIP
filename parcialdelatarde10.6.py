@@ -293,3 +293,27 @@ tpa1 = ["pato","perro","gato","perro","leon","perro"]
 print(subsecuencia_mas_larga(tpa1))
 tpa2 = ["pato","perro","gato","perro","leon","perro","perro","gato","perro"]
 print(subsecuencia_mas_larga(tpa2))
+
+#--------------------------------------------------------------------------------
+
+# 5) Preguntas teóricas [2 puntos]
+
+# A) ¿Cuál es la diferencia entre una variable de 'scope global' y una variable de 'scope local'? 
+# (0.75 puntos)
+# ○ No hay ninguna diferencia, ambos términos significan lo mismo.
+# ● Las variables globales son accesibles desde cualquier parte del programa, mientras que las 
+# variables locales solo son accesibles dentro del bloque.
+# ○ Las variables locales son accesibles desde cualquier parte del programa, mientras que las 
+# variables globales solo son accesibles dentro del bloque donde fueron definidas.
+
+# B) ¿Qué se entiende por 'estado' en un programa? (0.75 puntos)
+# ○ La apariencia visual del código fuente.
+# ● La configuración de todas las variables en un punto específico durante la ejecución de un
+# programa.
+# ○ El nombre del archivo donde se guarda el código fuente.
+
+# C) ¿Qué es un Control Flow Graph? (0.5 puntos)
+# ○ Un diagrama que representa la estructura jerárquica del código.
+# ● Un diagrama que muestra los diferentes cambios que puede tomar la ejecución del programa a
+# través de sus instrucciones y decisiones.
+# ○ Un gráfico que representa el rendimiento del software en diferentes entornos.
