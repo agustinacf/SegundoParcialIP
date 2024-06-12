@@ -11,8 +11,6 @@
 # se debería devolver res=7
 
 def ultima_aparicion(s: list[int], e: int) -> int:
-    aparicion: int = 0
-
     for i in range(len(s)): # recorro toda la lista buscando la ultima aparicion de e en s
         if s[i] == e:
             aparicion = i

@@ -93,13 +93,11 @@ print(verificar_transacciones("ssrvvvvsvvsvvv"))
 # se deberia devolver res = -3.1
 
 def valor_minimo(s: list[(float, float)]) -> float:
-    indice: int = 0
     temp_minima: int = s[0][0]
     
-    while indice < len(s):
-        if s[indice][0] < temp_minima:
-            temp_minima = s[indice][0]
-        indice += 1
+    for i in range(len(s)):
+        if s[i][0] < temp_minima:
+            temp_minima = s[i][0]
     return temp_minima
 
 print(valor_minimo([(1.0, 5.2), (10.4, 15.1), (19.7, 28.9), (25.4, 35.6), (-3.1, 1.3)]))

@@ -90,19 +90,20 @@ print(filaClientes.queue)
 
 def torneo_de_gallinas(estrategias: dict[str, str]) -> dict[str, int]:
     puntajes: dict[str, int] = {}
-
-    for jugador in estrategias.items(): # busco la clave y valor de cada jugador en el diccionario estrategias
-        puntajes[jugador[0]] = 0 # agrego el primer elemento de jugador(el jugador en si) en el diccionario de puntajes, con un puntaje = 0
-        for contrincante in estrategias.items(): # vuelvo a buscar jugadores en estrategias, pero en este caso los llamo contrincantes
-            if jugador != contrincante: # debo asegurarme que no tome el mismo jugador dos veces
-                if jugador[1] == contrincante[1] and jugador[1] == "me la banco y no me desvío":
-                    puntajes[jugador[0]] -= 5
-                elif jugador[1] == contrincante[1] and jugador[1] == "me desvío siempre":
-                    puntajes[jugador[0]] -= 10
-                elif jugador[1] != contrincante[1] and jugador[1] == "me la banco y no me desvío":
-                    puntajes[jugador[0]] += 10
-                elif jugador[1] != contrincante[1] and jugador[1] == "me desvío siempre":
-                    puntajes[jugador[0]] -= 15
+    
+    for jugador in estrategias.items():
+        if jugador not in puntajes.keys():
+            puntajes[jugador[0]] = 0
+            for contrincante in estrategias.items():
+                if jugador != contrincante:
+                    if jugador[1] == "me desvío siempre" and contrincante[1] == "me desvío siempre":
+                        puntajes[jugador[0]] -= 10
+                    elif jugador[1] == "me la banco y no me desvío" and contrincante[1] == "me la banco y no me desvío":
+                        puntajes[jugador[0]] -= 5
+                    elif jugador[1] == "me la banco y no me desvío" and contrincante[1] == "me desvío siempre":
+                        puntajes[jugador[0]] += 10
+                    elif jugador[1] == "me desvío siempre" and contrincante[1] == "me la banco y no me desvío":
+                        puntajes[jugador[0]] -= 15
     return puntajes
 
 e1 = {"leo": "me desvío siempre", "rodo": "me la banco y no me desvío"}
@@ -154,11 +155,12 @@ print(torneo_de_gallinas(e4))
 
 def hay_tres_iguales(lista: list[int]) -> bool: # hago una funcion que lea si en una lista hay 3 elementos iguales
     res = bool
-    contador_iguales: int = 0
     indice: int = 0
 
     for i in range(len(lista)): # recorro la lista
         numero: int = lista[i] # veo cada numero en particular 
+        contador_iguales: int = 0 # restauro el contador
+        indice: int = 0 # restauro el indice
         while indice < len(lista):
             if numero == lista[indice]:
                 contador_iguales += 1 # por cada numero igual sumo uno al contador
@@ -214,6 +216,8 @@ t5 = [["","X","","","","","O"],["X","","O","","","",""],["","","","","O","X","X"
 print(quien_gano_el_tateti_facilito(t5))
 t6 = [["X","","","","",""],["X","","","O","",""],["X","","","O","",""],["","","","O","",""]] #3
 print(quien_gano_el_tateti_facilito(t6))
+t7 = [["","","","","","O"],["","","X","O","",""],["X","O","X","","",""],["","","X","","","O"]] #1
+print(quien_gano_el_tateti_facilito(t7))
 
 #--------------------------------------------------------------------------------
 
@@ -230,39 +234,39 @@ print(quien_gano_el_tateti_facilito(t6))
 # el conjunto de sufijos es: "Diego", "iego", "ego", "go", "o". Para este ejercicio no consideramos a "" como sufijo de ningún
 # texto.
 
-def es_palindromo(palabra: str) -> bool: # hago una funcion auxiliar que me indique si una palabra es palindromo o no
-    for i in range(len(palabra)):
-        if palabra[i] == palabra[len(palabra) - i - 1]: # si la palabra en un indice es igual al indice opuesto
-            return True
-        return False
+def es_palindromo(palabra: str) -> bool:
+    res = bool
 
-def quitar_primera_letra(palabra: str) -> str: # hago una funcion auxiliar que quite la primer letra de un string, formando sufijos
+    for i in range(len(palabra)):
+        if palabra[i] == palabra[len(palabra) - i - 1]:
+            res = True
+        else:
+            return False
+    return res
+
+def sacar_primera_letra(palabra: str) -> str:
     palabra_nueva: str = ""
 
     if len(palabra) > 0:
-        for i in range(1, len(palabra)): # comienza desde 1 asi no suma a palabra_nueva el primer elemento de palabra
+        for i in range(1, len(palabra)):
             palabra_nueva += palabra[i]
     return palabra_nueva
 
 def cuantos_sufijos_son_palindromos(texto: str) -> int:
-    contador_sufijos: int = 0
-    letras_palabras: int = len(texto)
-    palabra: str = texto
+    cantidad_sufijos: int = 0
 
-    while letras_palabras != 0:
-        if es_palindromo(palabra):
-            contador_sufijos += 1
-            palabra = quitar_primera_letra(palabra)
-            letras_palabras -= 1
+    while len(texto) > 0:
+        if es_palindromo(texto):
+            cantidad_sufijos += 1
+            texto = sacar_primera_letra(texto)
         else:
-            palabra = quitar_primera_letra(palabra)
-            letras_palabras -= 1
-    return contador_sufijos
+            texto = sacar_primera_letra(texto)
+    return cantidad_sufijos
 
-print(cuantos_sufijos_son_palindromos("diego"))
-print(cuantos_sufijos_son_palindromos("asgus"))
-print(cuantos_sufijos_son_palindromos("hannah"))
-print(cuantos_sufijos_son_palindromos("anana"))
+print(cuantos_sufijos_son_palindromos("diego")) #1
+print(cuantos_sufijos_son_palindromos("asgus")) #1
+print(cuantos_sufijos_son_palindromos("hannah")) #2
+print(cuantos_sufijos_son_palindromos("anana")) #3
 
 #--------------------------------------------------------------------------------
 

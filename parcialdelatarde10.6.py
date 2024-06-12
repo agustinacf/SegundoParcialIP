@@ -29,7 +29,7 @@ def divisores(numero: int) -> list[int]: # hago una funcion que me devuelva una 
             lista_divisores.append(i)
     return lista_divisores
 
-def sacar_primer_numero(numero: int) -> int: # hago una funcion que saque el primero numero de un numero
+def sacar_primer_numero(numero: int) -> int: # hago una funcion que saque el primer numero de un numero
     numero_str: str = str(numero) # debo transformar el numero a un string
     numero_nuevo: int = ""
 
@@ -106,7 +106,7 @@ sc2 = [("pato", 12),("pato",0),("pato",13),("collar",300),("collar",20),("collar
 #{"pato":(0,13), "collar":(17,300), "comida": (29,100)}
 print(stock_productos(sc2))
 sc3 = [("correa", 10),("comida",140),("comida",49),("shampoo",2),("shampoo",39),("shampoo",50)]
-#{"corra": (10,10), "comida":(49,140), "shampoo": (2,50)}
+#{"correa": (10,10), "comida":(49,140), "shampoo": (2,50)}
 print(stock_productos(sc3))
 
 #--------------------------------------------------------------------------------
@@ -289,9 +289,9 @@ def subsecuencia_mas_larga(tipos_pacientes_atendidos: list[str]) -> int:
     indice_res = primer_numero_secuencia_mas_larga(lista_indices)
     return indice_res
 
-tpa1 = ["pato","perro","gato","perro","leon","perro"]
+tpa1 = ["pato","perro","gato","perro","leon","perro"] #1
 print(subsecuencia_mas_larga(tpa1))
-tpa2 = ["pato","perro","gato","perro","leon","perro","perro","gato","perro"]
+tpa2 = ["pato","perro","gato","perro","leon","perro","perro","gato","perro"] # 5
 print(subsecuencia_mas_larga(tpa2))
 
 #--------------------------------------------------------------------------------
