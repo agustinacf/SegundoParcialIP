@@ -89,7 +89,7 @@ def pos_umbral(s: list[int], u: int) -> int:
         if s[indice] >= 0: # el numero en la lista debe ser positivo
             suma += s[indice]
             if suma > u:
-                return indice # me devuelve el indice del numero, que luego de la suma, supera el umbral
+                return indice # me devuelve el indice del numero que, luego de la suma, supera el umbral
         indice += 1
     return -1
 
