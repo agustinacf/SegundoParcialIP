@@ -211,5 +211,3 @@ print(valores_extremos(cotizaciones_diarias2))
 # Consejo: Para probar con matrices pueden usar:
 # matriz_ceros = [[0]*9]*9
 # matriz_fila_1_distinta = [list(range(1,10))] + [[0]*9]*8
-
-def es_sudoku_valido(m: list[list[int]]) -> bool:
