@@ -1,2 +1,3 @@
 # RepasoSegundoParcialIP
-Simluacros y parciales de años 2023-2024
+Simulacros y parciales de años 2023-2024
+Éxitos :)
