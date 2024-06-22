@@ -1,2 +1,2 @@
 # SegundoParcialIP
-Resolución por profesores del segundo parcial en Python
+Resolución del segundo parcial en Python
