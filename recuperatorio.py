@@ -209,3 +209,89 @@ print(valores_extremos(cotizaciones_diarias2))
 # Consejo: Para probar con matrices pueden usar:
 # matriz_ceros = [[0]*9]*9
 # matriz_fila_1_distinta = [list(range(1,10))] + [[0]*9]*8
+
+def fila_sin_repetidos(fila: list[int]) -> bool:
+    lista_apariciones: list[int] = [] # hago una lista que guarde los numeros que van apareciendo en la fila
+    repetidos: int = 0
+
+    for numero in fila:
+        if 0 < numero <= 9:
+            if numero not in lista_apariciones:
+                lista_apariciones.append(numero)
+            else:
+                repetidos += 1 # si en la fila hay un numero repetido, sumo 1 al contador
+    
+    if repetidos != 0:
+        return False
+    else:
+        return True
+
+def columna_sin_repetidos(indice: int, m: list[list[int]]) -> bool:
+    indice_interno: int = 0 # este es el indice de cada fila de la matriz
+    lista_apariciones: list[int] = [] # hago una lista que guarde los numeros que van apareciendo en la columna
+    repetidos: int = 0
+
+    while indice_interno < len(m[indice]):
+        numero: int = m[indice_interno][indice]
+        if 0 < numero <= 9:
+            if numero not in lista_apariciones:
+                lista_apariciones.append(numero)
+            else:
+                repetidos += 1
+        indice_interno += 1
+    
+    if repetidos != 0:
+        return False
+    else:
+        return True
+
+def es_sudoku_valido(m: list[list[int]]) -> bool:
+    res: bool = True
+
+    for fila in m:
+        if fila_sin_repetidos(fila) == False:
+            res = False
+            return res
+        
+    for i in range(len(fila)):
+        if columna_sin_repetidos(i, m) == False:
+            res = False
+            return res
+    return res
+
+m1 = [
+[1, 2, 3, 4, 5, 6, 7, 8, 9],
+[9, 8, 7, 6, 4, 5, 3, 2, 1],
+[0, 0, 0, 0, 0, 0, 1, 0, 0],
+[0, 0, 0, 0, 0, 4, 0, 0, 0],
+[0, 0, 0, 0, 6, 0, 0, 0, 0],
+[0, 0, 0, 5, 0, 0, 0, 0, 0],
+[0, 0, 4, 0, 0, 0, 0, 0, 0],
+[0, 3, 0, 0, 0, 0, 0, 0, 0],
+[2, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+print(es_sudoku_valido(m1)) # True
+m2 = [
+[1, 2, 3, 4, 5, 6, 1, 8, 9],
+[9, 8, 7, 6, 4, 5, 3, 2, 1],
+[0, 0, 0, 0, 0, 0, 1, 0, 0],
+[0, 0, 0, 0, 0, 4, 0, 0, 0],
+[0, 0, 0, 0, 6, 0, 0, 0, 0],
+[0, 0, 0, 5, 0, 0, 0, 0, 0],
+[0, 0, 4, 0, 0, 0, 0, 0, 0],
+[0, 3, 0, 0, 0, 0, 0, 0, 0],
+[2, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+print(es_sudoku_valido(m2)) # False
+m3 = [
+[1, 2, 3, 4, 5, 6, 7, 8, 9],
+[9, 8, 7, 6, 4, 5, 3, 2, 1],
+[0, 0, 0, 0, 0, 0, 1, 0, 0],
+[0, 0, 0, 0, 0, 4, 0, 0, 0],
+[0, 0, 0, 0, 6, 5, 0, 0, 0],
+[0, 0, 0, 5, 0, 0, 0, 0, 0],
+[0, 0, 4, 0, 0, 0, 0, 0, 0],
+[0, 3, 0, 0, 0, 0, 0, 0, 0],
+[2, 0, 0, 0, 0, 0, 0, 0, 0]
+]
+print(es_sudoku_valido(m3)) # False
