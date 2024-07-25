@@ -195,10 +195,44 @@ def crear_columna(matriz: list[list[int]], indice: int) -> list[int]:
 
     while indice_interno < len(matriz):
         numero = matriz[indice_interno][indice]
-        if numero != 0:
-            columna.append(numero)
+        columna.append(numero)
+        indice_interno += 1
     return columna
 
 def matriz_pseudo_ordenada(matriz: list[list[int]]) -> bool:
-    for i in range(len(matriz)):
-        
+    lista_minimos: list[int] = []
+
+    for i in range(len(matriz[0])):
+        columna: list[int] = crear_columna(matriz, i)
+        valor_minimo: int = minimo(columna)
+        lista_minimos.append(valor_minimo)
+    
+    res: bool = True
+    indice: int = 0
+    indice_mayor: int = 1
+    while indice_mayor < len(lista_minimos):
+        if lista_minimos[indice] >= lista_minimos[indice_mayor]:
+            res = False
+        indice += 1
+        indice_mayor += 1
+    
+    return res
+
+m1 = [[1, 3, 5, 5],
+      [2, 1, 6, 7],
+      [0, 2, 4, 8]]
+print(matriz_pseudo_ordenada(m1)) #true
+m2 = [[0, 3, 5],
+      [2, 2, 6],
+      [0, 4, 4],
+      [3, 5, 2]]
+print(matriz_pseudo_ordenada(m2)) #false
+m4 = [[5, 6, 8, 10]]
+print(matriz_pseudo_ordenada(m4)) #true 
+m5 = [[1],
+      [2],
+      [6],
+      [3]]
+print(matriz_pseudo_ordenada(m5)) #true 
+m6 = [[1]]
+print(matriz_pseudo_ordenada(m6)) #true
