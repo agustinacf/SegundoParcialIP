@@ -1,0 +1,262 @@
+<html>
+
+<head>
+  <link rel="icon" href="data:,">
+  <link href="css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<div>
+
+<h1> Recuperatorio Haskell - Tema 1 </h1>
+
+<p>
+
+<h2> Importante </h2>
+Template de funciones a implementar <a href="#" onclick="forceDownload('/parcial/Template_1.hs','SolucionT1.hs');">aca</a><br>
+Lista de funciones permitidas <a href="/static/haskell_permitidas.html">aca</a><br>
+Ejemplo de hunit <a href="#" onclick="forceDownload('/parcial/Test_template_t1.hs','Test_template_t1.hs');">aca</a>
+
+<p>
+
+<form name="form1" action="/submit_examen" method="post" enctype="multipart/form-data" onsubmit="return validaciones(event)">
+
+<h2> Enunciado </h2>
+
+<ol>
+ <p>
+  Una <strong>sopa de números</strong> es un juego que consiste en descubrir propiedades de un tablero de dimensiones <i>n</i> &#215; <i>m</i> con 
+  <i>n</i> y <i>m</i> > 0, en los que en cada posición hay un número entero positivo. Cada posición se identifica con una dupla (<i>i</i>,<i>j</i>) 
+  en el cual la primera componente 
+  corresponde a una fila y la segunda a una columna. A modo de ejemplo, la siguiente figura muestra un tablero de  5 &#215; 4 en el que el número 13 aparece 
+  en la posición (1,1) y el número 5 aparece en la posición (4,3). Notar que tanto la numeración de las filas como la de las columnas 
+  comienzan en 1. 
+</p>
+<center>
+<table border>
+  <tr align=center>
+      <td>13</td>
+      <td>12</td>
+      <td>6</td>
+      <td>4</td>
+  </tr>
+  <tr align=center>
+      <td>1</td>
+      <td>1</td>
+      <td>32</td>
+      <td>25</td>
+  </tr>
+  <tr align=center>
+      <td>9</td>
+      <td>2</td>
+      <td>14</td>
+      <td>7</td>
+  </tr>
+  <tr align=center>
+      <td>7</td>
+      <td>3</td>
+      <td>5</td>
+      <td>16</td>
+  </tr>
+  <tr align=center>
+      <td>27</td>
+      <td>2</td>
+      <td>8</td>
+      <td>18</td>
+  </tr>
+</table>
+</center>
+<p>
+Un camino en un tablero está dado por una secuencia de posiciones adyacentes en la que solo es posible desplazarse desde una posición dada hacia la 
+posición de su derecha o hacia la que se encuentra debajo. En otras palabras, un camino de longitud <i>l</i> en un tablero se define como una secuencia con <i>l</i> posiciones, 
+ordenadas de manera tal que el elemento <i>i</i>-ésimo es la posición resultante de haberse movido hacia la derecha o hacia abajo desde la posición (<i>i</i>-1)-ésima.
+
+<!--Un camino de longitud <i>l</i> de una sucesión <i>a<sub>n</sub></i> con <i>n</i>
+perteneciente a los números naturales, es un camino en un tablero tal que para todo 1 &#8804; <i>i</i> &#8804; <i>l</i>, el valor <i>i</i>-ésimo del camino 
+es <i>a<sub>i</sub></i>.--> Siguiendo con el ejemplo, a continuación puede observarse un camino de longitud 5 que representa la sucesión Fibonacci y que empieza en 
+la posición (2,1) y termina en (4,3) del tablero.
+</p>
+<center>
+  <table border>
+    <tr align=center>
+        <td>13</td>
+        <td>12</td>
+        <td>6</td>
+        <td>4</td>
+    </tr>
+    <tr align=center>
+        <td bgcolor="lightgreen">1</td>
+        <td bgcolor="lightgreen">1</td>
+        <td>32</td>
+        <td>25</td>
+    </tr>
+    <tr align=center>
+        <td>9</td>
+        <td bgcolor="lightgreen">2</td>
+        <td>14</td>
+        <td>7</td>
+    </tr>
+    <tr align=center>
+        <td>7</td>
+        <td bgcolor="lightgreen">3</td>
+        <td bgcolor="lightgreen">5</td>
+        <td>16</td>
+    </tr>
+    <tr align=center>
+        <td>27</td>
+        <td>2</td>
+        <td>8</td>
+        <td>18</td>
+    </tr>
+  </table>
+  </center>
+<p>
+<p>
+  Para manipular las sopas de números en Haskell vamos a representar el tablero como una lista de filas de igual longitud. 
+  A su vez, cada fila vamos a representarla como una lista de enteros positivos. 
+  Las posiciones vamos a representarlas con tuplas de dos números enteros positivos y un camino va a estar dado por una lista de posiciones. 
+</p>
+  Para implementar esta sopa de números nos enviaron las siguientes especificaciones y nos pidieron que hagamos el desarrollo enteramente en Haskell, utilizando los tipos
+  requeridos y solamente las funciones que se ven en la materia Introducción a la Programación / Algoritmos y Estructuras de Datos I (FCEyN-UBA).
+</p>
+
+<p>
+Asumimos los siguientes renombres de tipos de datos en las especificaciones de los ejercicios:<br>
+- Fila = seq⟨Z⟩ <br>
+- Tablero = seq⟨Fila⟩ <br>
+- Posicion = Z x Z  -- Observación: las posiciones son: (fila, columna)<br>
+- Camino = seq⟨Posicion⟩ <br>
+<p>
+
+  <li> Ejercicio 1 (2 puntos)</li>
+  <p>problema maximo (<i>t</i>: Tablero) : Z {<br>
+      &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> es un tablero bien formado, es decir, la longitud de todas las filas es la misma, y tienen al menos un elemento} <br>
+      &nbsp; <strong>requiere:</strong> {Existe al menos una columna en el tablero <i>t</i> } <br>
+    &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> no es vacío, todos los números del tablero son positivos, mayor estricto a 0} <br>
+    &nbsp; <strong>asegura:</strong> {<i>res</i>  es igual al número más grande del tablero <i>t</i>} <br>
+  }<br>
+  </p>
+
+  <li> Ejercicio 2 (2 puntos)</li>
+  <p>problema masRepetido (<i>t</i>: Tablero) : Z {<br>
+    &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> es un tablero bien formado, es decir, la longitud de todas las filas es la misma, y tienen al menos un elemento} <br>
+      &nbsp; <strong>requiere:</strong> {Existe al menos una columna en el tablero <i>t</i> } <br>
+
+    &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> no es vacío, todos los números del tablero son positivos, mayor estricto a 0} <br>
+    &nbsp; <strong>asegura:</strong> {<i>res</i>  es igual al número que más veces aparece en un tablero <i>t</i>. 
+      Si hay empate devuelve cualquiera de ellos} <br>
+  }<br>
+  </p>
+
+  <li> Ejercicio 3 (2 puntos)</li>
+  <p>problema valoresDeCamino (<i>t</i>: Tablero, <i>c</i>: Camino) : seq⟨Z⟩ {<br>
+    &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> es un tablero bien formado, es decir, la longitud de todas las filas es la misma, y tienen al menos un elemento} <br>
+      &nbsp; <strong>requiere:</strong> {Existe al menos una columna en el tablero <i>t</i> } <br>
+      
+      &nbsp; <strong>requiere:</strong> {El tablero <i>t</i> no es vacío, todos los números del tablero son positivos, mayor estricto a 0} <br>
+      &nbsp; <strong>requiere:</strong> {El camino <i>c</i> es un camino válido, es decir, secuencia de posiciones adyacentes en la que solo 
+        es posible desplazarse hacia la posición de la derecha o hacia abajo y todas las posiciones están dentro de los limites del tablero <i>t</i>}  <br>
+      &nbsp; <strong>asegura:</strong> {<i>res</i>  es igual a la secuencia de números que están en el camino <i>c</i>, ordenados de la misma
+      forma que aparecen las posiciones correspondientes en el camino.} <br>
+    }<br>
+  </p>
+
+  <li> Ejercicio 4 (2 puntos)</li>
+  <p>problema esCaminoFibo (<i>s</i>: seq⟨Z⟩, <i>i</i>: Z) : Bool {<br>
+      &nbsp; <strong>requiere:</strong> {La secuencia de números <i>s</i> es no vacía y está compuesta por números positivos (mayor estricto que 0) que representan los valores de un camino en un tablero}  <br>
+	  &nbsp; <strong>requiere:</strong> {<i>i</i> >= 0}  <br>
+      &nbsp; <strong>asegura:</strong> {<i>res</i> = true <=> los valores de <i>s</i> son la sucesión 
+        de Fibonacci inicializada con el número pasado como parámetro <i>i</i>} <br>
+    }<br>
+    <p></p>
+    Notas: </p>
+    En este ejercicio se pasa una secuencia de valores en lugar de un tablero y un camino para no generar dependencia con el ejercicio anterior.
+    <p>
+    </p> 
+    Recordemos que la sucesión de Fibonacci está definida con la siguiente función recursiva:<br>
+    f(0) = 0<br>
+    f(1) = 1<br>
+    f(<i>n</i>) = f(<i>n</i>-1) + f(<i>n</i>-2) con <i>n</i>>1<br>
+  <p>
+  </p>  
+    En el ejemplo del tablero y del camino (verde claro) que figuran más arriba tenemos que esCaminoFibo [1,1,2,3,5] 1 reduce a <i>True</i>.  
+  </p>
+
+  <li> Ejercicio 5 (2 puntos)</li>
+  <p>
+    Conteste marcando la opción correcta. Haskell es un lenguaje de programación con evaluación: <br>
+
+  <input type="radio" name="mchoice_1" id="opcion1" value="1" />
+      <label for="opcion1">Perezosa (o <i>lazy</i>) porque una expresión solo se evalúa cuando le toca, yendo de izquierda a derecha en el código.</label> <br>
+  <input type="radio" name="mchoice_1" id="opcion2" value="2" />
+      <label for="opcion2">Ansiosa (o <i>eager</i>) porque una expresión se evalúa tan pronto como se vincula a una variable o se pasa como un argumento.</label> <br>
+  <input type="radio" name="mchoice_1" id="opcion3" value="3" />
+      <label for="opcion3">Perezosa (o <i>lazy</i>) porque una expresión solo se evalúa cuando se necesita su valor.</label> <br>
+  </p>
+  <p></p>
+
+</ol>
+
+<hr>
+  <h3 style="color:#1A5276">Adjunta el archivo con tu solución:</h3>
+  <p><b style="color:red">Solo se puede adjuntar 1 archivo de extensión .hs. En caso de haber desarrollado tests propios, no deben ser entregados.</b></p>
+
+  <label for="archivo">Seleccionar archivo a enviar:</label>
+  <input type="file" id="archivo" name="archivo" required accept=".hs,text/x-haskell"/>
+
+  <input type="submit" value="Enviar"
+        style= "background-color: #1A5276; border-radius: 5px;
+                margin-top:10px;padding: 10px 150px;color: #FFFFFF;
+                font-size: 20px;cursor: pointer; width:100%" >
+
+</form>
+
+</div>
+
+<script>
+  function validaciones(event) {
+    var confirmacion = confirm("Confirmo que revise mis respuestas y que quiero entregar mi examen");
+    if (!confirmacion) {
+        event.preventDefault();
+        event.returnValue = false;
+        return false;
+      }
+      event.returnValue = true;
+      return true;
+  }
+</script>
+
+<script>
+// registro una funcion para mostrar el archivo cuando se adjunta.
+// de esa forma evitamos que se adjunten otros archivos por error
+document
+  .getElementById('archivo')
+  .addEventListener(
+      'change',
+      function () {
+          var fr = new FileReader();
+          fr.onload = function () {
+              alert(this.result);
+          };
+          fr.readAsText(this.files[0]);
+      }
+  );
+
+// para forzar a bajar el template de hunit y que no se pueda abrir en un nuevo tab
+// (el browser intenta mostrar el codigo como HTML y el formato se ve raro)
+function forceDownload(url, filename) {
+  fetch(url).then(function(t) {
+    return t.blob().then((b) => {
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(b);
+      a.setAttribute("download", filename);
+      a.click();
+    });
+  });
+}
+</script>
+
+</body>
+
+</html>
