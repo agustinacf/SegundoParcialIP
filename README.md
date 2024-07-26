@@ -1,4 +1,4 @@
-# SegundoParcialIP
+# RepasoSegundoParcialIP
 
 <p align="center">
 Simulacros y parciales de años 2023-2024. 
